@@ -1,17 +1,17 @@
 :root{
   --paper:#e9e1cf;
-  --paper-hi:#efe8d8;
+  --paper-2:#efe8d8;
   --ink:#16110b;
   --ink-soft:#46402f;
   --ink-faint:#8a8167;
-  --red:#a81f17;
+  --red:#b41f15;
   --red-deep:#8c1812;
-  --cream:#f2ead9;
+  --cream:#f3ecdc;
   --rule:#1c160d;
 }
 *{box-sizing:border-box;}
 
-/* ---------- square ---------- */
+/* ---------- shared square shell ---------- */
 .pieza{
   position:relative;
   width:1080px;height:1080px;
@@ -23,119 +23,142 @@
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   -webkit-font-smoothing:antialiased;
 }
-.pieza::before{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(120% 80% at 50% -10%, rgba(255,250,235,.55), transparent 60%),
-    radial-gradient(140% 120% at 110% 120%, rgba(60,48,20,.10), transparent 55%);
-}
 .pieza::after{
-  content:"";position:absolute;inset:0;z-index:8;pointer-events:none;
+  content:"";position:absolute;inset:0;z-index:9;pointer-events:none;
   background-image:url("noise.svg");
   background-size:300px 300px;
   opacity:.06;mix-blend-mode:multiply;
 }
 
-.band{
-  position:relative;z-index:1;flex:none;
-  width:100%;height:430px;
-  overflow:hidden;
-  background:var(--paper);
-}
-.band .half{
-  width:100%;height:100%;
-  object-fit:cover;object-position:50% 36%;
-  display:block;
-  filter:contrast(1.02);
-}
-.cut{
-  position:relative;z-index:2;flex:none;
-  height:3px;background:var(--rule);
-  box-shadow:0 4px 0 -2px rgba(20,15,8,.18);
-}
-
-/* ---------- text body ---------- */
-.body{
-  position:relative;z-index:3;flex:1 1 auto;min-height:0;
-  padding:26px 56px 12px;
-  display:flex;flex-direction:column;
-}
-
-/* meta row */
+/* ---------- meta row ---------- */
 .meta{
   display:flex;justify-content:space-between;align-items:center;
-  font-size:18px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  padding-bottom:13px;border-bottom:2px solid var(--rule);
+  font-size:19px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
 }
-.brand{display:flex;align-items:center;color:var(--ink);}
+.brand{display:flex;align-items:center;}
 .brand .dot{
-  width:13px;height:13px;background:var(--red);border-radius:50%;
+  width:14px;height:14px;background:var(--cream);border-radius:50%;
   margin-right:14px;flex:none;
 }
-.brand .sep{margin:0 11px;color:var(--ink-faint);font-weight:400;}
-.brand .declared{color:var(--red);}
-.exp{color:var(--ink-soft);letter-spacing:.16em;font-variant-numeric:tabular-nums;}
+.meta--dark .brand{color:var(--cream);}
+.meta:not(.meta--dark) .brand{color:var(--ink);}
+.meta:not(.meta--dark) .brand .dot{background:var(--red);}
+.exp{letter-spacing:.16em;font-variant-numeric:tabular-nums;}
+.meta--dark .exp{color:rgba(243,236,220,.72);}
+.meta:not(.meta--dark) .exp{color:var(--ink-soft);}
 
-/* kicker */
-.kicker{
-  margin-top:18px;
-  font-size:17px;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--ink-faint);font-weight:600;line-height:1.3;
+/* ---------- the loud verdict (our voice) ---------- */
+.eyebrow{
+  display:block;
+  font-size:20px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(243,236,220,.8);
+  margin-bottom:18px;
 }
-.kicker .ksep{margin:0 10px;}
-.kicker b{color:var(--ink);font-weight:800;}
-
-/* headline + quote group, vertically centered in leftover space */
-.stack{margin:auto 0;}
-
-/* headline — pulled punch line */
-.title{
-  margin:0;
-  font-weight:800;line-height:.99;letter-spacing:-.028em;
-  color:var(--ink);text-wrap:balance;
+.eyebrow--ink{color:var(--red);}
+.verdict{
+  margin:0;font-weight:800;line-height:.98;letter-spacing:-.025em;
+  color:var(--cream);text-wrap:balance;
 }
-.title .per{color:var(--red);}
+.verdict--ink{color:var(--ink);}
+.vper{color:var(--cream);}
+.verdict--ink .vper{color:var(--red);}
 
-/* quote — the body text, large & readable for feed */
+/* ---------- evidence (his quote, demoted) ---------- */
+.evidence{padding:38px 56px 34px;}
+.evidence--light{background:var(--paper);}
+.evTag{
+  display:inline-block;
+  font-size:17px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;background:var(--ink);
+  padding:7px 13px 6px;margin-bottom:20px;
+}
 .quote{
-  margin:20px 0 0;padding:0;
-  line-height:1.32;font-weight:500;color:#221b11;
+  margin:0;padding:0;
+  line-height:1.3;font-weight:600;color:#1f1810;
   text-wrap:pretty;
 }
-.quote .qmark{color:var(--ink-faint);font-weight:600;}
 .quote cite{
-  display:block;margin-top:14px;
-  font-size:16px;font-style:normal;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);
+  display:block;margin-top:18px;
+  font-size:17px;font-style:normal;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+}
+.evTopic{color:var(--ink-faint);font-weight:600;margin-left:2px;}
+
+/* ---------- closer ribbon (unified democracy line) ---------- */
+.closer{
+  margin-top:auto;flex:none;
+  background:var(--ink);
+  display:flex;align-items:stretch;gap:22px;
+  padding:30px 56px;
+}
+.closer .closerBar{width:6px;background:var(--red);flex:none;}
+.closer p{
+  margin:0;font-size:33px;line-height:1.18;font-weight:800;color:var(--cream);
+  letter-spacing:-.01em;text-wrap:balance;
+}
+.closer u{
+  text-decoration:none;color:#fff;
+  box-shadow:inset 0 -3px 0 0 var(--red);
 }
 
-/* ---------- CTA ribbon ---------- */
-.ribbon{
-  position:relative;z-index:4;flex:none;
+/* ===================================================================
+   DIRECTION A — red field dominant, no photo
+   =================================================================== */
+.pieza--roja .redField{
+  position:relative;
+  flex:1 1 auto;min-height:0;
   background:var(--red);
   color:var(--cream);
-  padding:26px 56px;
-  border-top:3px solid var(--rule);
+  padding:40px 56px 44px;
+  display:flex;flex-direction:column;
+  overflow:hidden;
 }
-.ribbon p{
-  margin:0;font-size:27px;line-height:1.26;font-weight:600;
-  text-wrap:pretty;
+/* translucent portrait, fused into the red with multiply */
+.pieza--roja .redImg{
+  position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:50% 18%;
+  opacity:.55;mix-blend-mode:multiply;
+  pointer-events:none;
 }
-.ribbon b{font-weight:800;}
-.ribbon u{
-  text-decoration:none;color:#fff;font-weight:800;
-  box-shadow:inset 0 -2px 0 0 rgba(255,255,255,.6);
+.pieza--roja .redScrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,.12), transparent 55%),
+    linear-gradient(180deg, rgba(150,26,18,.10) 0%, rgba(150,26,18,0) 32%, rgba(70,8,6,.62) 100%);
+  mix-blend-mode:normal;
 }
+.pieza--roja .meta{position:relative;z-index:2;}
+.pieza--roja .vWrap{margin-top:auto;position:relative;z-index:2;}
 
-/* ---------- footer ---------- */
-.foot{
-  position:relative;z-index:3;flex:none;
-  background:var(--paper);
-  padding:14px 56px 16px;
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
-  color:var(--ink-soft);
+/* ===================================================================
+   DIRECTION B — photo demoted to dossier ficha
+   =================================================================== */
+.pieza--ficha{flex-direction:column;}
+.fichaBody{flex:1 1 auto;min-height:0;padding:44px 56px 0;display:flex;flex-direction:column;}
+.pieza--ficha .vWrap--ficha{margin-top:30px;}
+.pieza--ficha .verdict{line-height:.96;}
+.fichaRow{
+  display:flex;gap:30px;align-items:flex-start;
+  margin-top:36px;
 }
-.foot .slogan{white-space:nowrap;}
-.foot .slogan i{color:var(--red);font-style:normal;margin:0 8px;font-weight:900;}
-.foot .year{letter-spacing:.16em;color:var(--ink-faint);}
+.ficha{
+  margin:0;flex:none;width:280px;
+  border:3px solid var(--ink);
+  background:var(--paper-2);
+}
+.ficha img{
+  display:block;width:100%;height:200px;object-fit:cover;object-position:50% 32%;
+  filter:grayscale(1) contrast(1.04);
+}
+.ficha figcaption{
+  padding:11px 14px 13px;border-top:3px solid var(--ink);
+  font-size:15px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink);line-height:1.25;
+}
+.ficha figcaption span{
+  display:block;margin-top:4px;
+  font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--ink-faint);
+}
+.pieza--ficha .evidence{flex:1 1 auto;padding:0;}
+.pieza--ficha .evTag{margin-bottom:14px;}
