@@ -1,0 +1,48 @@
+name: Deploy to Hidora
+# Sitio ESTÁTICO (Next.js output:export -> carpeta out/). El poller del servidor
+# detecta el build y lo despliega (modelo PULL, solo tráfico saliente). El gateway
+# sirve el contenido directo desde ~/sites/canvasbm/current (type:"static").
+# El NOMBRE del workflow debe seguir siendo exactamente "Deploy to Hidora".
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-canvasbm
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Next.js static export)
+        run: npm run build
+
+      - name: Package static artifact
+        run: |
+          set -e
+          tar -czf build.tgz -C out .
+          echo "Artifact size: $(du -h build.tgz | cut -f1)"
+
+      - name: Publish build to Release (evita cuota de artefactos)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create deploy -R "${{ github.repository }}" -t deploy -n "latest build" || echo "release ya existe"
+          gh release upload deploy build.tgz -R "${{ github.repository }}" --clobber
