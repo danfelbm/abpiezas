@@ -16,7 +16,7 @@
 import React from "react";
 import { DC } from "./dcCore";
 
-export function DCViewport({ slug, children, minScale = 0.1, maxScale = 8, style = {} }) {
+export function DCViewport({ slug, children, minScale = 0.1, maxScale = 8, style = {}, bg = DC.bg }) {
   const vpRef = React.useRef(null);
   const worldRef = React.useRef(null);
   const tf = React.useRef({ x: 0, y: 0, scale: 1 });
@@ -239,7 +239,7 @@ export function DCViewport({ slug, children, minScale = 0.1, maxScale = 8, style
         // Ocupa el <main> del shell (que es position:relative), no la ventana:
         // con el sidebar al lado 100vw desbordaría.
         position: "absolute", inset: 0,
-        background: DC.bg,
+        background: bg,
         overflow: "hidden",
         overscrollBehavior: "none",
         touchAction: "none",

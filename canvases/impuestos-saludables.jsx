@@ -88,7 +88,7 @@ const footerBleedStory = { position: "absolute", left: 84, right: 84, bottom: 17
 
 export default function ImpuestosSaludables() {
   return (
-    <DesignCanvas slug="impuestos-saludables">
+    <DesignCanvas slug="impuestos-saludables" bg="#c9c6bf">
 
       {/* ============ PIEZA 1 · Niñez ============ */}
       <DCSection id="p1" title="01 · Niñez">

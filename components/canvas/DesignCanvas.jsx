@@ -25,7 +25,7 @@ import { DCFocusOverlay } from "./DCFocusOverlay";
 import { canvasStateStore } from "../../lib/storage";
 import "./dc.css";
 
-export function DesignCanvas({ slug, children, minScale, maxScale, style }) {
+export function DesignCanvas({ slug, children, minScale, maxScale, style, bg }) {
   const [state, setState] = React.useState({ sections: {}, focus: null });
   // Hold rendering until the store read settles so the saved order/titles
   // appear on first paint (no source-order flash). didRead gates writes until
@@ -122,7 +122,7 @@ export function DesignCanvas({ slug, children, minScale, maxScale, style }) {
 
   return (
     <DCCtx.Provider value={api}>
-      <DCViewport slug={slug} minScale={minScale} maxScale={maxScale} style={style}>{ready && children}</DCViewport>
+      <DCViewport slug={slug} minScale={minScale} maxScale={maxScale} style={style} bg={bg}>{ready && children}</DCViewport>
       {state.focus && registry[state.focus] && (
         <DCFocusOverlay entry={registry[state.focus]} sectionMeta={sectionMeta} sectionOrder={sectionOrder} />
       )}
