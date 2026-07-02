@@ -1,13 +1,27 @@
+/* Identidad CAJAR (manual de identidad corporativa): verde azulado en tres
+   tonos, fondos claros y sobrios, tipografía Roboto (cargada en layout.tsx).
+   El canvas en sí conserva su propia estética — esto solo cubre el shell. */
+:root {
+  --cajar-teal-light: #53b5a3;
+  --cajar-teal: #3c8376;
+  --cajar-dark: #4f6964;
+  --ink: #2b3a36;
+  --ink-soft: #5c6d68;
+  --bg: #f7f8f7;
+  --surface: #ffffff;
+  --line: rgba(79, 105, 100, 0.16);
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #cfc8b6;
+  background: var(--bg);
+  color: var(--ink);
   /* Evita pull-to-refresh y rebotes del navegador sobre el canvas. */
   overscroll-behavior: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 }
 
 /* ── Shell: sidebar + main ─────────────────────────────── */
@@ -21,44 +35,58 @@ html, body {
 }
 
 .sidebar {
-  flex: 0 0 240px;
-  width: 240px;
-  background: #1f1b16;
-  color: #e9e1cf;
+  flex: 0 0 250px;
+  width: 250px;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  color: var(--ink);
   display: flex;
   flex-direction: column;
-  padding: 20px 12px;
+  padding: 24px 14px;
   gap: 4px;
 }
 .sidebar-brand {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #e9e1cf;
   text-decoration: none;
-  padding: 8px 12px 20px;
+  padding: 4px 12px 24px;
   display: block;
 }
-.sidebar-brand .dot { color: #b41f15; }
+.sidebar-brand .name {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--cajar-teal);
+}
+.sidebar-brand .project {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
 .sidebar-item {
   display: block;
   padding: 10px 12px;
   border-radius: 8px;
-  color: rgba(233, 225, 207, .85);
+  color: var(--ink);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.3;
+  border-left: 3px solid transparent;
   transition: background .12s;
 }
-.sidebar-item:hover { background: rgba(255, 255, 255, .07); }
-.sidebar-item.active { background: rgba(180, 31, 21, .35); color: #fff; }
+.sidebar-item:hover { background: rgba(60, 131, 118, .07); }
+.sidebar-item.active {
+  background: rgba(60, 131, 118, .12);
+  border-left-color: var(--cajar-teal);
+  color: var(--cajar-teal);
+}
 .sidebar-item .sub {
   display: block;
   font-size: 12px;
   font-weight: 400;
-  opacity: .55;
+  color: var(--ink-soft);
   margin-top: 2px;
 }
 
@@ -73,7 +101,7 @@ html, body {
     z-index: 200;
     transform: translateX(-100%);
     transition: transform .22s cubic-bezier(.2, .7, .3, 1);
-    box-shadow: 0 0 40px rgba(0, 0, 0, .35);
+    box-shadow: 0 0 40px rgba(43, 58, 54, .25);
   }
   .shell.drawer-open .sidebar { transform: translateX(0); }
 
@@ -82,7 +110,7 @@ html, body {
     position: fixed;
     inset: 0;
     z-index: 150;
-    background: rgba(24, 20, 16, .5);
+    background: rgba(43, 58, 54, .4);
     border: none;
     padding: 0;
   }
@@ -99,11 +127,11 @@ html, body {
     width: 44px;
     height: 44px;
     border-radius: 10px;
-    border: none;
+    border: 1px solid var(--line);
     cursor: pointer;
-    background: #1f1b16;
-    color: #e9e1cf;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .25);
+    background: var(--surface);
+    color: var(--cajar-teal);
+    box-shadow: 0 2px 12px rgba(43, 58, 54, .12);
   }
 }
 
@@ -115,26 +143,27 @@ html, body {
   margin: 0 auto;
 }
 .home h1 {
-  font-size: 28px;
-  letter-spacing: -.4px;
-  color: #16110b;
-  margin: 0 0 6px;
+  font-size: 30px;
+  letter-spacing: -0.4px;
+  color: var(--cajar-teal);
+  margin: 0 0 4px;
 }
-.home p.lead { color: #46402f; margin: 0 0 32px; }
+.home p.lead { color: var(--ink-soft); margin: 0 0 36px; font-size: 16px; }
 .home-card {
   display: block;
-  background: #f3ecdc;
-  border: 2px solid #16110b;
-  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
   padding: 20px 22px;
   margin-bottom: 16px;
   text-decoration: none;
-  color: #16110b;
-  transition: transform .12s, box-shadow .12s;
+  color: var(--ink);
+  transition: transform .12s, box-shadow .12s, border-color .12s;
 }
 .home-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+  border-color: var(--cajar-teal-light);
+  box-shadow: 0 8px 24px rgba(60, 131, 118, .14);
 }
-.home-card h2 { margin: 0 0 4px; font-size: 19px; }
-.home-card span { color: #8a8167; font-size: 14px; }
+.home-card h2 { margin: 0 0 4px; font-size: 19px; color: var(--cajar-teal); }
+.home-card span { color: var(--ink-soft); font-size: 14px; }

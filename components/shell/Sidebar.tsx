@@ -9,7 +9,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <nav className="sidebar">
       <Link href="/" className="sidebar-brand" onClick={onNavigate}>
-        canvas<span className="dot">bm</span>
+        <span className="name">Canvas</span>
+        <span className="project">Proyecto Cajar</span>
       </Link>
       {visibleCanvases().map((c) => {
         const href = `/c/${c.slug}/`;
