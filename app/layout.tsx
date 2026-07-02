@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { AppShell } from "../components/shell/AppShell";
+import { AccessGate } from "../components/shell/AccessGate";
 import "./globals.css";
 import "../styles/pieza.css";
 import "../styles/stories.css";
@@ -17,7 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body className={roboto.className}>
-        <AppShell>{children}</AppShell>
+        <AccessGate>
+          <AppShell>{children}</AppShell>
+        </AccessGate>
       </body>
     </html>
   );

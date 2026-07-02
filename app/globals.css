@@ -135,6 +135,74 @@ html, body {
   }
 }
 
+/* ── Gate de acceso por token ──────────────────────────── */
+.gate {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.gate-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+.gate-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cajar-teal);
+  letter-spacing: -0.2px;
+}
+.gate-project {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+}
+.gate-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.gate-card input {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+}
+.gate-card input:focus {
+  border-color: var(--cajar-teal);
+  box-shadow: 0 0 0 3px rgba(60, 131, 118, .15);
+}
+.gate-error {
+  font-size: 13px;
+  color: #b3403a;
+  margin-top: 8px;
+}
+.gate-card button {
+  font: inherit;
+  font-weight: 500;
+  margin-top: 18px;
+  padding: 11px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--cajar-teal);
+  color: #fff;
+  cursor: pointer;
+  transition: background .12s;
+}
+.gate-card button:hover { background: var(--cajar-dark); }
+
 /* ── Índice (/) ────────────────────────────────────────── */
 .home {
   min-height: 100dvh;

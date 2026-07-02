@@ -36,6 +36,10 @@ Todo es `'use client'`. El motor era un solo archivo (`design-canvas.jsx` del re
 - **`app/c/[slug]/page.tsx`** genera una página estática por entrada (`generateStaticParams` incluye **también los hidden** — esa es la semántica de "oculto": fuera del sidebar (`components/shell/Sidebar.tsx`) y del índice (`app/page.tsx`), pero la URL directa funciona).
 - **`components/shell/AppShell.tsx`** — sidebar fijo en desktop, drawer con hamburguesa en ≤768px. El índice `/` se renderiza sin shell.
 
+### Gate de acceso
+
+Todo el sitio está detrás de un token compartido (`components/shell/AccessGate.tsx`, montado en `app/layout.tsx`): validación puramente en cliente — disuasiva, no seguridad real, el token vive en el bundle. El acceso se recuerda 5 días en localStorage (`access-granted-at`). El token y el TTL son constantes al inicio del archivo.
+
 ### Persistencia (seam para Supabase)
 
 Las ediciones del usuario (reordenar, renombrar, borrar artboards, títulos de sección) persisten vía la interfaz **`CanvasStateStore`** (`lib/types.ts`), implementada hoy con localStorage en `lib/storage.ts` (clave `dc-state:<slug>`; el viewport aparte en `dc-viewport:<slug>`). La integración con Supabase debe reimplementar esa interfaz sin tocar el motor.
