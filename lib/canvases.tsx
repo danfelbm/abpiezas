@@ -11,6 +11,7 @@ export const CANVASES: CanvasEntry[] = [
     slug: "peligro-declarado",
     title: "Peligro declarado",
     subtitle: "6 piezas · 2 direcciones · 1:1",
+    hidden: true,
     Component: PeligroDeclarado,
   },
   {
