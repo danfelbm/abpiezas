@@ -94,21 +94,44 @@ export function DCViewport({ slug, children, minScale = 0.1, maxScale = 8, style
       }
     };
 
-    // Mouse-wheel vs trackpad-scroll heuristic. A physical wheel sends
-    // line-mode deltas (Firefox) or large integer pixel deltas with no X
-    // component (Chrome/Safari). Trackpad two-finger scroll sends small/
-    // fractional pixel deltas, often with non-zero deltaX. ctrlKey is set by
-    // the browser for trackpad pinch.
-    const isMouseWheel = (e) =>
-      e.deltaMode !== 0 ||
-      (e.deltaX === 0 && Number.isInteger(e.deltaY) && Math.abs(e.deltaY) >= 40);
+    // Mouse-wheel vs trackpad-scroll disambiguation.
+    //
+    // Reading a single event's deltas is unreliable: a straight-down two-finger
+    // scroll can emit deltaX === 0 with an integer deltaY, which looks exactly
+    // like a notched wheel — so mid-pan ticks would flip to zoom and the view
+    // jitters (pans down while snapping back out). Fix: watch the *stream*.
+    // Trackpads betray themselves with a horizontal component, fractional
+    // deltas, or a dense burst of events (one per frame). Any such tell arms a
+    // short window during which every wheel event is treated as a pan, so the
+    // pure-vertical integer ticks that follow can't be misread as zoom. A real
+    // wheel never trips the tell, so it keeps zooming.
+    let lastWheelTs = -1;
+    let trackpadUntil = 0;   // event-clock timestamp; pan-only until then
 
     const onWheel = (e) => {
       e.preventDefault();
       if (isGesturing) return; // Safari: gesture* owns the pinch — discard concurrent wheels
-      if ((e.ctrlKey || e.metaKey) && !isMouseWheel(e)) {
+      const now = e.timeStamp;
+      const dt = lastWheelTs < 0 ? Infinity : now - lastWheelTs;
+      lastWheelTs = now;
+
+      // Pinch — the browser sets ctrlKey (and we also honor metaKey). Always zoom.
+      if (e.ctrlKey || e.metaKey) {
         zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.01));
-      } else if (isMouseWheel(e)) {
+        return;
+      }
+
+      // Trackpad tells → arm the pan window.
+      if (e.deltaX !== 0 || !Number.isInteger(e.deltaY) || dt < 30) {
+        trackpadUntil = now + 400;
+      }
+
+      // Notched wheel: line-mode, or a big pure-vertical integer step, and no
+      // recent trackpad signal.
+      const isWheel = now >= trackpadUntil &&
+        (e.deltaMode !== 0 || (e.deltaX === 0 && Number.isInteger(e.deltaY) && Math.abs(e.deltaY) >= 40));
+
+      if (isWheel) {
         zoomAt(e.clientX, e.clientY, Math.exp(-Math.sign(e.deltaY) * 0.18));
       } else {
         // trackpad two-finger scroll — pan

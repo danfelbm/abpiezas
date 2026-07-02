@@ -37,7 +37,7 @@ const underline = (color, size = ".16em", pos = ".92em") => ({
 
 function Photo({ src, pos, filter }) {
   return (
-    <img src={src} alt="" style={{ ...abs, width: "100%", height: "100%", objectFit: "cover", objectPosition: pos, filter }} />
+    <img src={src} alt="" loading="lazy" decoding="async" style={{ ...abs, width: "100%", height: "100%", objectFit: "cover", objectPosition: pos, filter }} />
   );
 }
 
@@ -94,7 +94,7 @@ export default function ImpuestosSaludables() {
       <DCSection id="p1" title="01 · Niñez">
         <DCArtboard id="p1-post" label="01 · Niñez · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--teal-d)")}>
-            <Photo src="/impuestos/foto1.png" pos="50% 30%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
+            <Photo src="/impuestos/foto1.webp" pos="50% 30%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
             <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(200deg,#7FC6B4 0%,transparent 42%)", mixBlendMode: "screen", opacity: .5 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(20,45,40,.10) 0%,rgba(20,45,40,0) 34%,rgba(15,38,34,.62) 72%,rgba(12,32,28,.9) 100%)" }} />
@@ -114,7 +114,7 @@ export default function ImpuestosSaludables() {
         </DCArtboard>
         <DCArtboard id="p1-story" label="01 · Niñez · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--teal-d)")}>
-            <Photo src="/impuestos/foto1.png" pos="42% 30%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
+            <Photo src="/impuestos/foto1.webp" pos="42% 30%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
             <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(200deg,#7FC6B4 0%,transparent 42%)", mixBlendMode: "screen", opacity: .5 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(20,45,40,.10) 0%,rgba(20,45,40,0) 38%,rgba(15,38,34,.62) 70%,rgba(12,32,28,.92) 100%)" }} />
@@ -139,7 +139,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p2-post" label="02 · Salud pública · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "52%", WebkitMaskImage: "linear-gradient(90deg,transparent 0%,#000 26%)", maskImage: "linear-gradient(90deg,transparent 0%,#000 26%)" }}>
-              <Photo src="/impuestos/foto2.png" pos="50% 35%" filter="grayscale(1) contrast(1) brightness(1.06)" />
+              <Photo src="/impuestos/foto2.webp" pos="50% 35%" filter="grayscale(1) contrast(1) brightness(1.06)" />
               <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .14 }} />
             </div>
@@ -159,7 +159,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p2-story" label="02 · Salud pública · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "46%", WebkitMaskImage: "linear-gradient(180deg,#000 68%,transparent 100%)", maskImage: "linear-gradient(180deg,#000 68%,transparent 100%)" }}>
-              <Photo src="/impuestos/foto2.png" pos="50% 30%" filter="grayscale(1) contrast(1) brightness(1.06)" />
+              <Photo src="/impuestos/foto2.webp" pos="50% 30%" filter="grayscale(1) contrast(1) brightness(1.06)" />
               <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .14 }} />
             </div>
@@ -203,7 +203,7 @@ export default function ImpuestosSaludables() {
               <p style={{ margin: 0, fontSize: 38, fontWeight: 300, lineHeight: 1.28 }}>Pueden dirigirse al <span style={{ fontWeight: 700, background: "#fff", color: "var(--blue)", padding: "0 .12em", borderRadius: ".08em", boxDecorationBreak: "clone", WebkitBoxDecorationBreak: "clone" }}>sistema de salud</span> y a políticas sociales urgentes.</p>
             </div>
             <div style={{ position: "absolute", right: 64, top: 706, width: 250, height: 250, borderRadius: "50%", overflow: "hidden", zIndex: 6, boxShadow: "0 0 0 6px rgba(255,255,255,.14)" }}>
-              <Photo src="/impuestos/foto3.png" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1.02)" />
+              <Photo src="/impuestos/foto3.webp" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1.02)" />
               <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply", opacity: .55 }} />
             </div>
             <Footer logo="white" color="#fff" logoH={82} arrowS={48} hashSize={31} style={{ ...footerBleedPost, zIndex: 6 }} />
@@ -230,7 +230,7 @@ export default function ImpuestosSaludables() {
               <p style={{ margin: 0, fontSize: 42, fontWeight: 300, lineHeight: 1.3 }}>Pueden dirigirse al <span style={{ fontWeight: 700, background: "#fff", color: "var(--blue)", padding: "0 .12em", borderRadius: ".08em", boxDecorationBreak: "clone", WebkitBoxDecorationBreak: "clone" }}>sistema de salud</span> y a políticas sociales urgentes.</p>
             </div>
             <div style={{ position: "absolute", right: 84, top: 1250, width: 300, height: 300, borderRadius: "50%", overflow: "hidden", zIndex: 6, boxShadow: "0 0 0 7px rgba(255,255,255,.14)" }}>
-              <Photo src="/impuestos/foto3.png" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1.02)" />
+              <Photo src="/impuestos/foto3.webp" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1.02)" />
               <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply", opacity: .55 }} />
             </div>
             <Footer logo="white" color="#fff" logoH={92} arrowS={52} hashSize={34} style={{ ...footerBleedStory, zIndex: 6 }} />
@@ -243,7 +243,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p4-post" label="04 · Industria · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "50%", WebkitMaskImage: "linear-gradient(270deg,transparent 0%,#000 26%)", maskImage: "linear-gradient(270deg,transparent 0%,#000 26%)" }}>
-              <Photo src="/impuestos/foto4.png" pos="50% 50%" filter="grayscale(1) contrast(1) brightness(1.05)" />
+              <Photo src="/impuestos/foto4.webp" pos="50% 50%" filter="grayscale(1) contrast(1) brightness(1.05)" />
               <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .12 }} />
             </div>
@@ -263,7 +263,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p4-story" label="04 · Industria · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "46%", WebkitMaskImage: "linear-gradient(180deg,#000 68%,transparent 100%)", maskImage: "linear-gradient(180deg,#000 68%,transparent 100%)" }}>
-              <Photo src="/impuestos/foto4.png" pos="50% 42%" filter="grayscale(1) contrast(1) brightness(1.05)" />
+              <Photo src="/impuestos/foto4.webp" pos="50% 42%" filter="grayscale(1) contrast(1) brightness(1.05)" />
               <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .12 }} />
             </div>
@@ -289,7 +289,7 @@ export default function ImpuestosSaludables() {
       <DCSection id="p5" title="05 · Respaldo OMS">
         <DCArtboard id="p5-post" label="05 · Respaldo OMS · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--blue-d)")}>
-            <Photo src="/impuestos/foto5.png" pos="50% 45%" filter="grayscale(1) contrast(1.05) brightness(1)" />
+            <Photo src="/impuestos/foto5.webp" pos="50% 45%" filter="grayscale(1) contrast(1.05) brightness(1)" />
             <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(200deg,#8E97E8 0%,transparent 44%)", mixBlendMode: "screen", opacity: .45 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(15,22,70,.12) 0%,rgba(15,22,70,0) 30%,rgba(13,19,60,.66) 70%,rgba(11,16,52,.92) 100%)" }} />
@@ -311,7 +311,7 @@ export default function ImpuestosSaludables() {
         </DCArtboard>
         <DCArtboard id="p5-story" label="05 · Respaldo OMS · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--blue-d)")}>
-            <Photo src="/impuestos/foto5.png" pos="50% 45%" filter="grayscale(1) contrast(1.05) brightness(1)" />
+            <Photo src="/impuestos/foto5.webp" pos="50% 45%" filter="grayscale(1) contrast(1.05) brightness(1)" />
             <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(200deg,#8E97E8 0%,transparent 44%)", mixBlendMode: "screen", opacity: .45 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(15,22,70,.12) 0%,rgba(15,22,70,0) 34%,rgba(13,19,60,.66) 68%,rgba(11,16,52,.94) 100%)" }} />
@@ -337,7 +337,7 @@ export default function ImpuestosSaludables() {
       <DCSection id="p6" title="06 · Derechos humanos">
         <DCArtboard id="p6-post" label="06 · Derechos humanos · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--teal-d)")}>
-            <Photo src="/impuestos/foto6.png" pos="50% 42%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
+            <Photo src="/impuestos/foto6.webp" pos="50% 42%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
             <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(160deg,#7FC6B4 0%,transparent 40%)", mixBlendMode: "screen", opacity: .5 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(20,45,40,.10) 0%,rgba(20,45,40,0) 34%,rgba(15,38,34,.62) 72%,rgba(12,32,28,.9) 100%)" }} />
@@ -357,7 +357,7 @@ export default function ImpuestosSaludables() {
         </DCArtboard>
         <DCArtboard id="p6-story" label="06 · Derechos humanos · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--teal-d)")}>
-            <Photo src="/impuestos/foto6.png" pos="50% 42%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
+            <Photo src="/impuestos/foto6.webp" pos="50% 42%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
             <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(160deg,#7FC6B4 0%,transparent 40%)", mixBlendMode: "screen", opacity: .5 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(20,45,40,.10) 0%,rgba(20,45,40,0) 36%,rgba(15,38,34,.62) 70%,rgba(12,32,28,.92) 100%)" }} />
@@ -382,7 +382,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p7-post" label="07 · Alimentación real · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "52%", WebkitMaskImage: "linear-gradient(90deg,transparent 0%,#000 26%)", maskImage: "linear-gradient(90deg,transparent 0%,#000 26%)" }}>
-              <Photo src="/impuestos/foto7.png" pos="50% 50%" filter="grayscale(1) contrast(1) brightness(1.05)" />
+              <Photo src="/impuestos/foto7.webp" pos="50% 50%" filter="grayscale(1) contrast(1) brightness(1.05)" />
               <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .14 }} />
             </div>
@@ -401,7 +401,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p7-story" label="07 · Alimentación real · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "46%", WebkitMaskImage: "linear-gradient(180deg,#000 68%,transparent 100%)", maskImage: "linear-gradient(180deg,#000 68%,transparent 100%)" }}>
-              <Photo src="/impuestos/foto7.png" pos="50% 40%" filter="grayscale(1) contrast(1) brightness(1.05)" />
+              <Photo src="/impuestos/foto7.webp" pos="50% 40%" filter="grayscale(1) contrast(1) brightness(1.05)" />
               <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .14 }} />
             </div>
@@ -426,7 +426,7 @@ export default function ImpuestosSaludables() {
       <DCSection id="p8" title="08 · Prevención">
         <DCArtboard id="p8-post" label="08 · Prevención · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--blue-d)")}>
-            <Photo src="/impuestos/foto8.png" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1)" />
+            <Photo src="/impuestos/foto8.webp" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1)" />
             <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(200deg,#8E97E8 0%,transparent 44%)", mixBlendMode: "screen", opacity: .42 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(15,22,70,.14) 0%,rgba(15,22,70,0) 30%,rgba(13,19,60,.66) 70%,rgba(11,16,52,.92) 100%)" }} />
@@ -447,7 +447,7 @@ export default function ImpuestosSaludables() {
         </DCArtboard>
         <DCArtboard id="p8-story" label="08 · Prevención · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--blue-d)")}>
-            <Photo src="/impuestos/foto8.png" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1)" />
+            <Photo src="/impuestos/foto8.webp" pos="50% 40%" filter="grayscale(1) contrast(1.05) brightness(1)" />
             <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(200deg,#8E97E8 0%,transparent 44%)", mixBlendMode: "screen", opacity: .42 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(15,22,70,.14) 0%,rgba(15,22,70,0) 34%,rgba(13,19,60,.66) 68%,rgba(11,16,52,.94) 100%)" }} />
@@ -473,7 +473,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p9-post" label="09 · Evidencia · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "50%", WebkitMaskImage: "linear-gradient(270deg,transparent 0%,#000 26%)", maskImage: "linear-gradient(270deg,transparent 0%,#000 26%)" }}>
-              <Photo src="/impuestos/foto9.png" pos="50% 50%" filter="grayscale(1) contrast(1.02) brightness(1.04)" />
+              <Photo src="/impuestos/foto9.webp" pos="50% 50%" filter="grayscale(1) contrast(1.02) brightness(1.04)" />
               <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .12 }} />
             </div>
@@ -492,7 +492,7 @@ export default function ImpuestosSaludables() {
         <DCArtboard id="p9-story" label="09 · Evidencia · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--paper)", "var(--ink)")}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "46%", WebkitMaskImage: "linear-gradient(180deg,#000 68%,transparent 100%)", maskImage: "linear-gradient(180deg,#000 68%,transparent 100%)" }}>
-              <Photo src="/impuestos/foto9.png" pos="50% 55%" filter="grayscale(1) contrast(1.02) brightness(1.04)" />
+              <Photo src="/impuestos/foto9.webp" pos="50% 55%" filter="grayscale(1) contrast(1.02) brightness(1.04)" />
               <div style={{ ...abs, background: "var(--blue)", mixBlendMode: "multiply" }} />
               <div style={{ ...abs, background: "var(--paper)", mixBlendMode: "screen", opacity: .12 }} />
             </div>
@@ -517,7 +517,7 @@ export default function ImpuestosSaludables() {
       <DCSection id="p10" title="10 · Equidad">
         <DCArtboard id="p10-post" label="10 · Equidad · Post" width={1080} height={1080}>
           <div className="imps" style={frame("var(--teal-d)")}>
-            <Photo src="/impuestos/foto10.png" pos="50% 45%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
+            <Photo src="/impuestos/foto10.webp" pos="50% 45%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
             <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(160deg,#7FC6B4 0%,transparent 42%)", mixBlendMode: "screen", opacity: .48 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(20,45,40,.10) 0%,rgba(20,45,40,0) 30%,rgba(15,38,34,.66) 70%,rgba(12,32,28,.92) 100%)" }} />
@@ -537,7 +537,7 @@ export default function ImpuestosSaludables() {
         </DCArtboard>
         <DCArtboard id="p10-story" label="10 · Equidad · Story" width={1080} height={1920}>
           <div className="imps" style={frame("var(--teal-d)")}>
-            <Photo src="/impuestos/foto10.png" pos="60% 45%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
+            <Photo src="/impuestos/foto10.webp" pos="60% 45%" filter="grayscale(1) contrast(1.06) brightness(1.02)" />
             <div style={{ ...abs, background: "var(--teal)", mixBlendMode: "multiply" }} />
             <div style={{ ...abs, background: "linear-gradient(160deg,#7FC6B4 0%,transparent 42%)", mixBlendMode: "screen", opacity: .48 }} />
             <div style={{ ...abs, background: "linear-gradient(180deg,rgba(20,45,40,.10) 0%,rgba(20,45,40,0) 34%,rgba(15,38,34,.66) 68%,rgba(12,32,28,.94) 100%)" }} />
