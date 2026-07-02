@@ -71,10 +71,14 @@ export default function MiCanvas() {
 
 Eso es todo — la ruta `/c/mi-canvas/` y la entrada del sidebar salen del registry. Los datos de las piezas actuales viven en `data/piezas.ts` y sus componentes en `components/pieces/`.
 
+`DesignCanvas` acepta además `bg` (color de fondo del mundo/viewport, default `DC.bg`) y `minScale`/`maxScale`. Usa `bg` cuando el diseño espera un fondo propio detrás de los artboards (p. ej. `impuestos-saludables` usa `bg="#c9c6bf"`).
+
 ## Gotchas
 
 - **`window`/`localStorage` solo dentro de effects o lazy initializers.** Los client components se prerenderizan durante `npm run build`; un acceso en render rompe el build (no el dev). Es el error más probable al tocar el motor.
 - **Los artboards son frames de diseño estáticos, no regiones de scroll**: nunca `height:100%` + `overflow:auto` en su contenido; dimensiona cada artboard a su contenido con píxeles explícitos.
 - **Assets con rutas absolutas** (`/img/...`, `/noise.svg` — también dentro del CSS): las páginas viven bajo `/c/<slug>/` y una ruta relativa se rompe. Imágenes con `<img>` normal, no `next/image` (aporta nada en export estático con frames a píxel fijo).
+- **Fotos pesadas → WebP.** El cuello de botella de carga (sobre todo en móvil) es el peso de las imágenes, no el DOM (20 artboards ≈ 300 nodos, trivial). Convierte las fotos a WebP a su resolución nativa (`cwebp -q 85` basta; no hace falta reescalar — el export PNG ya reescala a 3×, así que no pierdes nitidez) y sírvelas con `loading="lazy"` + `decoding="async"`. Ej.: `impuestos-saludables` pasó de 24 MB PNG a 2 MB WebP.
+- **El viewport impone su fuente de sistema** (`DC.font` en `dcCore.js`) al mundo del canvas, anulando la herencia del `body`. Un canvas que necesite una fuente o pesos concretos debe: (1) cargarlos en `app/layout.tsx` vía `next/font` exponiendo una CSS var (p. ej. `variable: "--font-roboto"`) y (2) re-aplicar `font-family: var(--font-roboto)` en el wrapper scopeado de sus piezas — si no, renderiza con la fuente de sistema y pesos sintéticos incorrectos. Ver `.imps` en `styles/impuestos.css`.
 - **CSS de piezas es global** (`styles/pieza.css`, `styles/stories.css`, importados en `app/layout.tsx`); las clases del chrome del canvas llevan prefijo `dc-` para no colisionar. `stories.css` hereda tokens de `pieza.css` y debe cargarse después.
 - El repo original (HTML estático + React UMD por CDN) está en el historial de git anterior al commit de migración, por si hay que consultar el comportamiento de referencia.
