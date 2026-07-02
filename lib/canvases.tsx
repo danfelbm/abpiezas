@@ -3,6 +3,7 @@
 
 import type { CanvasEntry } from "./types";
 import PeligroDeclarado from "../canvases/peligro-declarado";
+import ImpuestosSaludables from "../canvases/impuestos-saludables";
 import StoriesCanvas from "../canvases/stories";
 
 export const CANVASES: CanvasEntry[] = [
@@ -11,6 +12,12 @@ export const CANVASES: CanvasEntry[] = [
     title: "Peligro declarado",
     subtitle: "6 piezas · 2 direcciones · 1:1",
     Component: PeligroDeclarado,
+  },
+  {
+    slug: "impuestos-saludables",
+    title: "Impuestos saludables",
+    subtitle: "10 piezas · post 1:1 y story 9:16",
+    Component: ImpuestosSaludables,
   },
   {
     slug: "stories",
