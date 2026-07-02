@@ -1,0 +1,140 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #cfc8b6;
+  /* Evita pull-to-refresh y rebotes del navegador sobre el canvas. */
+  overscroll-behavior: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+/* ── Shell: sidebar + main ─────────────────────────────── */
+.shell { display: flex; height: 100dvh; }
+
+.shell-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative; /* el DCViewport se ancla aquí con inset:0 */
+  overflow: hidden;
+}
+
+.sidebar {
+  flex: 0 0 240px;
+  width: 240px;
+  background: #1f1b16;
+  color: #e9e1cf;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  gap: 4px;
+}
+.sidebar-brand {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #e9e1cf;
+  text-decoration: none;
+  padding: 8px 12px 20px;
+  display: block;
+}
+.sidebar-brand .dot { color: #b41f15; }
+.sidebar-item {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: rgba(233, 225, 207, .85);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  transition: background .12s;
+}
+.sidebar-item:hover { background: rgba(255, 255, 255, .07); }
+.sidebar-item.active { background: rgba(180, 31, 21, .35); color: #fff; }
+.sidebar-item .sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: .55;
+  margin-top: 2px;
+}
+
+/* Hamburguesa y backdrop: solo existen en móvil */
+.sidebar-toggle { display: none; }
+.sidebar-backdrop { display: none; }
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform .22s cubic-bezier(.2, .7, .3, 1);
+    box-shadow: 0 0 40px rgba(0, 0, 0, .35);
+  }
+  .shell.drawer-open .sidebar { transform: translateX(0); }
+
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(24, 20, 16, .5);
+    border: none;
+    padding: 0;
+  }
+  .shell.drawer-open .sidebar-backdrop { display: block; }
+
+  .sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 120;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #1f1b16;
+    color: #e9e1cf;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .25);
+  }
+}
+
+/* ── Índice (/) ────────────────────────────────────────── */
+.home {
+  min-height: 100dvh;
+  padding: 72px 24px 48px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.home h1 {
+  font-size: 28px;
+  letter-spacing: -.4px;
+  color: #16110b;
+  margin: 0 0 6px;
+}
+.home p.lead { color: #46402f; margin: 0 0 32px; }
+.home-card {
+  display: block;
+  background: #f3ecdc;
+  border: 2px solid #16110b;
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  text-decoration: none;
+  color: #16110b;
+  transition: transform .12s, box-shadow .12s;
+}
+.home-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+}
+.home-card h2 { margin: 0 0 4px; font-size: 19px; }
+.home-card span { color: #8a8167; font-size: 14px; }

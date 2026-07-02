@@ -1,68 +1,8 @@
-// pieces.jsx — "Peligro declarado" series, inverted hierarchy.
+// Piezas.jsx — "Peligro declarado" series, inverted hierarchy.
 // The REJECTION (our voice, red, large) is the hero. His quote is demoted to
 // evidence. Photo is removed or shrunk to a dossier "ficha".
-// Exports: PIEZAS, PiezaRoja, PiezaFicha.
 
-const CLOSER = "No permitas que se atente contra la democracia.";
-
-const PIEZAS = [
-  {
-    n: 1,
-    img: "img/half_1.png?v=3",
-    topic: "Sobre quien piensa distinto",
-    verdict: "Quiere exterminar a quien piensa distinto",
-    verdictSize: 76,
-    quote: "En mí tendrán a un enemigo acérrimo que hará todo lo posible para destriparlos. A esa plaga hay que erradicarla.",
-    quoteSize: 37,
-  },
-  {
-    n: 2,
-    img: "img/half_2.png?v=3",
-    topic: "Sobre la protesta social",
-    verdict: "Amenaza con disparar a quien proteste",
-    verdictSize: 78,
-    quote: "El que salga a hacer desmanes y atacar a la fuerza pública, voy a darle de baja como corresponde.",
-    quoteSize: 39,
-  },
-  {
-    n: 3,
-    img: "img/half_3.png?v=3",
-    topic: "Sobre el paramilitarismo",
-    verdict: "Propone volver a armar civiles",
-    verdictSize: 82,
-    quote: "Una ciudadanía decente armada es complemento de la seguridad con la fuerza pública.",
-    quoteSize: 41,
-  },
-  {
-    n: 4,
-    img: "img/half_4.png?v=3",
-    topic: "Sobre los falsos positivos",
-    verdict: "Ordena matar, vivos o muertos",
-    verdictSize: 82,
-    quote: "Tiene 20 días para que me los entregue vivos o muertos; si van a poner resistencia, suéltenle un bombazo y se acabó.",
-    quoteSize: 37,
-  },
-  {
-    n: 5,
-    img: "img/half_5.png?v=3",
-    topic: "Sobre la justicia de paz",
-    verdict: "Quiere acabar con la justicia de paz",
-    verdictSize: 76,
-    quote: "La JEP es un directorio político que quiere parecer un tribunal, es una farsa… hay que eliminarlo.",
-    quoteSize: 39,
-  },
-  {
-    n: 6,
-    img: "img/half_6.png?v=3",
-    topic: "Sobre los veedores internacionales",
-    verdict: "Quiere expulsar a los veedores internacionales",
-    verdictSize: 64,
-    quote: "La ONU y la OEA son directorios políticos de la izquierda que no han servido para nada… eso hay que cerrarlo.",
-    quoteSize: 38,
-  },
-];
-
-function MetaRow({ p, dark }) {
+export function MetaRow({ p, dark }) {
   const num = String(p.n).padStart(2, "0");
   return (
     <div className={"meta" + (dark ? " meta--dark" : "")}>
@@ -75,7 +15,7 @@ function MetaRow({ p, dark }) {
   );
 }
 
-function Evidence({ p, onLight }) {
+export function Evidence({ p, onLight }) {
   return (
     <div className={"evidence" + (onLight ? " evidence--light" : "")}>
       <span className="evTag">Lo dijo, textual</span>
@@ -87,7 +27,7 @@ function Evidence({ p, onLight }) {
   );
 }
 
-function Closer() {
+export function Closer() {
   return (
     <div className="closer">
       <span className="closerBar" />
@@ -99,7 +39,7 @@ function Closer() {
 }
 
 /* DIRECTION A — translucent photo blended into the red field */
-function PiezaRoja({ p }) {
+export function PiezaRoja({ p }) {
   return (
     <div className="pieza pieza--roja">
       <div className="redField">
@@ -120,7 +60,7 @@ function PiezaRoja({ p }) {
 }
 
 /* DIRECTION B — photo demoted to a small dossier "ficha" */
-function PiezaFicha({ p }) {
+export function PiezaFicha({ p }) {
   return (
     <div className="pieza pieza--ficha">
       <div className="fichaBody">
@@ -143,5 +83,3 @@ function PiezaFicha({ p }) {
     </div>
   );
 }
-
-Object.assign(window, { PIEZAS, PiezaRoja, PiezaFicha, MetaRow, Evidence, Closer });

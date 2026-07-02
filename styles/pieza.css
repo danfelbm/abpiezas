@@ -25,7 +25,7 @@
 }
 .pieza::after{
   content:"";position:absolute;inset:0;z-index:9;pointer-events:none;
-  background-image:url("noise.svg");
+  background-image:url("/noise.svg");
   background-size:300px 300px;
   opacity:.06;mix-blend-mode:multiply;
 }

@@ -1,9 +1,10 @@
-// stories.jsx — 9:16 (1080×1920) Instagram Stories versions.
-// Reuses PIEZAS data + MetaRow / Evidence / Closer from pieces.jsx.
-// Exports: StoryRoja, StoryFicha.
+// Stories.jsx — 9:16 (1080×1920) Instagram Stories versions.
+// Reuses MetaRow / Evidence / Closer from Piezas.jsx.
+
+import { MetaRow, Evidence, Closer } from "./Piezas";
 
 /* DIRECTION A — translucent photo blended into the red field */
-function StoryRoja({ p }) {
+export function StoryRoja({ p }) {
   return (
     <div className="story story--roja">
       <div className="st-redField">
@@ -26,7 +27,7 @@ function StoryRoja({ p }) {
 }
 
 /* DIRECTION B — photo demoted to a dossier "ficha" */
-function StoryFicha({ p }) {
+export function StoryFicha({ p }) {
   return (
     <div className="story story--ficha">
       <div className="st-fichaBody">
@@ -47,5 +48,3 @@ function StoryFicha({ p }) {
     </div>
   );
 }
-
-Object.assign(window, { StoryRoja, StoryFicha });
