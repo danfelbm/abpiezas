@@ -1,8 +1,8 @@
-// dcExport.js — per-artboard export (kind: 'png' | 'html'). Both paths share
-// the same self-contained clone: computed styles baked in, @font-face / <img> /
-// inline-style background-image urls inlined as data URIs. PNG wraps the clone
-// in foreignObject→canvas at 3× the artboard's natural width×height; HTML wraps
-// it in a minimal standalone document. Both are independent of viewport zoom.
+// dcExport.js — per-artboard export (kind: 'png' | 'jpg'). Both rasterize the
+// same self-contained clone: computed styles baked in, @font-face / <img> /
+// inline-style background-image urls inlined as data URIs, wrapped in
+// foreignObject→canvas at 3× the artboard's natural width×height. Independent
+// of viewport zoom. JPG has no alpha, so it fills white first and encodes at q0.92.
 export async function dcExport(node, w, h, name, kind) {
   try { await document.fonts.ready; } catch {}
   const toDataURL = (url) => fetch(url).then((r) => r.blob()).then((b) => new Promise((res) => {
@@ -87,17 +87,10 @@ export async function dcExport(node, w, h, name, kind) {
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   };
 
-  if (kind === 'html') {
-    const html = '<!doctype html><html><head><meta charset="utf-8"><title>' + name + '</title>' +
-      (fontCss ? '<style>' + fontCss + '</style>' : '') +
-      '</head><body style="margin:0">' + xml + '</body></html>';
-    return save(new Blob([html], { type: 'text/html' }), 'html');
-  }
-
-  // PNG: the SVG's own width/height must be the output resolution — an
-  // <img>-loaded SVG rasterizes at its intrinsic size. viewBox maps the w×h
-  // foreignObject onto the px·w × px·h SVG canvas so the browser renders the
-  // HTML at full resolution.
+  // The SVG's own width/height must be the output resolution — an <img>-loaded
+  // SVG rasterizes at its intrinsic size. viewBox maps the w×h foreignObject
+  // onto the px·w × px·h SVG canvas so the browser renders the HTML at full
+  // resolution.
   const px = 3;
   const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w * px + '" height="' + h * px +
     '" viewBox="0 0 ' + w + ' ' + h + '"><foreignObject width="' + w + '" height="' + h + '">' +
@@ -109,6 +102,11 @@ export async function dcExport(node, w, h, name, kind) {
   });
   const cv = document.createElement('canvas');
   cv.width = w * px; cv.height = h * px;
-  cv.getContext('2d').drawImage(img, 0, 0);
-  cv.toBlob((blob) => save(blob, 'png'), 'image/png');
+  const ctx = cv.getContext('2d');
+  // JPG has no alpha: paint an opaque backdrop so any unpainted pixel is white,
+  // not black. (Artboards are full-bleed, but this guards flush edges.)
+  if (kind === 'jpg') { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height); }
+  ctx.drawImage(img, 0, 0);
+  if (kind === 'jpg') cv.toBlob((blob) => save(blob, 'jpg'), 'image/jpeg', 0.92);
+  else cv.toBlob((blob) => save(blob, 'png'), 'image/png');
 }

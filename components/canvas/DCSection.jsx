@@ -49,10 +49,6 @@ export function DCSection({ id, title, subtitle, children, gap = 48 }) {
             label={(sec.labels || {})[k] ?? byId[k].props.label}
             onRename={(v) => ctx && ctx.patchSection(sid, (x) => ({ labels: { ...x.labels, [k]: v } }))}
             onReorder={(next) => ctx && ctx.patchSection(sid, { order: next })}
-            onDelete={() => ctx && ctx.patchSection(sid, (x) => ({
-              hidden: [...(x.srcKey === srcKey ? (x.hidden || []) : []), k],
-              srcKey,
-            }))}
             onFocus={() => ctx && ctx.setFocus(`${sid}/${k}`)} />
         ))}
       </div>
@@ -64,19 +60,17 @@ export function DCSection({ id, title, subtitle, children, gap = 48 }) {
 // DCArtboard — marker; rendered by DCArtboardFrame via DCSection.
 export function DCArtboard() { return null; }
 
-export function DCArtboardFrame({ sectionId, artboard, label, order, onRename, onReorder, onFocus, onDelete }) {
+export function DCArtboardFrame({ sectionId, artboard, label, order, onRename, onReorder, onFocus }) {
   const { id: rawId, label: rawLabel, width = 260, height = 480, children, style = {} } = artboard.props;
   const id = rawId ?? rawLabel;
   const ref = React.useRef(null);
   const cardRef = React.useRef(null);
   const menuRef = React.useRef(null);
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [confirming, setConfirming] = React.useState(false);
 
-  // ⋯ menu: close on any outside pointerdown. Two-click delete lives inside
-  // the menu — first click arms the row, second commits; closing disarms.
+  // ⋯ menu: close on any outside pointerdown.
   React.useEffect(() => {
-    if (!menuOpen) { setConfirming(false); return; }
+    if (!menuOpen) return;
     const off = (e) => { if (!menuRef.current || !menuRef.current.contains(e.target)) setMenuOpen(false); };
     document.addEventListener("pointerdown", off, true);
     return () => document.removeEventListener("pointerdown", off, true);
@@ -172,12 +166,7 @@ export function DCArtboardFrame({ sectionId, artboard, label, order, onRename, o
             {menuOpen && (
               <div className="dc-menu" onPointerDown={(e) => e.stopPropagation()}>
                 <button onClick={() => doExport("png")}>Download PNG</button>
-                <button onClick={() => doExport("html")}>Download HTML</button>
-                <hr />
-                <button className="dc-danger"
-                  onClick={() => { if (confirming) { setMenuOpen(false); onDelete(); } else setConfirming(true); }}>
-                  {confirming ? "Click again to delete" : "Delete"}
-                </button>
+                <button onClick={() => doExport("jpg")}>Download JPG</button>
               </div>
             )}
           </div>

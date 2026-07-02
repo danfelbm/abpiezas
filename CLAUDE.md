@@ -25,9 +25,9 @@ Todo es `'use client'`. El motor era un solo archivo (`design-canvas.jsx` del re
 - **`DesignCanvas.jsx`** — orquestador. Recibe `slug` y children declarativos (`DCSection` > `DCArtboard`). Recorre los children **por tipo de componente** (patrón marker: `DCArtboard` renderiza `null`; quien pinta es `DCArtboardFrame` vía `DCSection`) para construir el registro de artboards que usa el focus overlay. Posee el estado editable por sección (order/labels/hidden/título renombrado).
 - **`DCViewport.jsx`** — pan/zoom. El transform vive en un ref y se escribe **directo al DOM** (`translate3d + scale`), sin pasar por estado de React, para mantener 60fps. Mapea rueda/trackpad/gestos Safari en desktop y, en touch, 1 dedo = pan, 2 dedos = pinch (Map de pointers activos). No conviertas esto a estado React.
 - **`dcCore.js`** — tokens `DC`, contexto `DCCtx` y `dcFlatten` (desanida Fragments para el walk por tipos).
-- **`DCSection.jsx`** — sección + frame de artboard (drag-reorder por grip, menú kebab con export/delete, rename inline).
+- **`DCSection.jsx`** — sección + frame de artboard (drag-reorder por grip, menú kebab con export PNG/JPG, rename inline).
 - **`DCFocusOverlay.jsx`** — vista fullscreen de un artboard (flechas/teclado en desktop, swipe en móvil).
-- **`dcExport.js`** — export PNG/HTML autocontenido (clona el nodo con computed styles + data URIs, PNG vía foreignObject→canvas a 3×).
+- **`dcExport.js`** — export PNG/JPG autocontenido (clona el nodo con computed styles + data URIs; rasteriza vía foreignObject→canvas a 3×; JPG rellena blanco y codifica a q0.92).
 - **`dc.css`** — el chrome del canvas (clases `dc-`). El chrome contra-escala con `--dc-inv-zoom` (variable que `DCViewport` actualiza en cada frame) para mantener tamaño constante en pantalla a cualquier zoom — si añades UI flotante dentro del mundo, úsala.
 
 ### Multi-canvas y rutas
